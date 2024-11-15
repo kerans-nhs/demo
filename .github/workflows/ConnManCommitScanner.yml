@@ -4,15 +4,6 @@ name: Conn Man Commit Scanner
 
 on:
   workflow_dispatch:
-    inputs:
-      include_keyword:
-        description: "Keyword or phrase to include in the commit message."
-        required: true
-        default: "by team_id"
-      exclude_keyword:
-        description: "Keyword or phrase to exclude from the commit message."
-        required: false
-        default: "cis2_example"
 
 jobs:
   filter_logs:
@@ -28,11 +19,8 @@ jobs:
       # Step 2: Run the script
       - name: Run ConnManCommitScanner script
         run: |
-          chmod +x .github/actions/ConnManCommitScanner/entrypoint.sh
-          .github/actions/ConnManCommitScanner/entrypoint.sh "./"
-        env:
-          INCLUDE_KEYWORD: ${{ inputs.include_keyword }}
-          EXCLUDE_KEYWORD: ${{ inputs.exclude_keyword }}
+          chmod +x .github/actions/ConnManCommitScanner/ConnManCommitScanner.sh
+          .github/actions/ConnManCommitScanner/ConnManCommitScanner.sh "./"
 
       # Step 3: Upload the filtered logs as an artifact
       - name: Upload filtered logs
