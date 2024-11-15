@@ -22,8 +22,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Run filter-git-logs script
-        uses: ./.github/actions/filter-git-logs  # Path to your custom action
+      - name: Run log filter script script
+        uses: ./.github/actions/ConnManCommitScanner # Path to your custom action
         env:
-          INCLUDE_KEYWORD: "by team_id"  # Set to your include keyword
-          EXCLUDE_KEYWORD: "cis2_example"  # Set to your exclude keyword
+          INCLUDE_KEYWORD: "by team_id" # Set to your include keyword
+          EXCLUDE_KEYWORD: "cis2_example" # Set to your exclude keyword
