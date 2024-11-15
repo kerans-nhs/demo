@@ -1,0 +1,29 @@
+# This is a basic workflow that is manually triggered
+
+name: Conn Man Commit Scanner
+
+on:
+  workflow_dispatch:
+    inputs:
+      include_keyword:
+        description: "Keyword or phrase to include in the commit message"
+        required: true
+        default: "by team_id"
+      exclude_keyword:
+        description: "Keyword or phrase to exclude from the commit message"
+        required: false
+        default: "cis2_example"
+
+jobs:
+  filter_logs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run filter-git-logs script
+        uses: ./.github/actions/filter-git-logs  # Path to your custom action
+        env:
+          INCLUDE_KEYWORD: "by team_id"  # Set to your include keyword
+          EXCLUDE_KEYWORD: "cis2_example"  # Set to your exclude keyword
