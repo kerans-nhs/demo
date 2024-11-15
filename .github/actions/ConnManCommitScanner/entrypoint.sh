@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the repository directory
-REPO_DIR="./"  # Set this to your Git repository path
+REPO_DIR="${1:-./}"  # Default to current directory if not provided
 OUTPUT_FILE="filtered_logs.csv"  # Output CSV file name
 INCLUDE_KEYWORD="by team_id"  # The keyword or phrase to include
 EXCLUDE_KEYWORD="cis2_example"  # The keyword or phrase to exclude
