@@ -6,11 +6,11 @@ on:
   workflow_dispatch:
     inputs:
       include_keyword:
-        description: "Keyword or phrase to include in the commit message"
+        description: "Keyword or phrase to include in the commit message."
         required: true
         default: "by team_id"
       exclude_keyword:
-        description: "Keyword or phrase to exclude from the commit message"
+        description: "Keyword or phrase to exclude from the commit message."
         required: false
         default: "cis2_example"
 
