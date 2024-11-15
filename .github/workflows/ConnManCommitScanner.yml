@@ -27,3 +27,9 @@ jobs:
         env:
           INCLUDE_KEYWORD: "by team_id" # Set to your include keyword
           EXCLUDE_KEYWORD: "cis2_example" # Set to your exclude keyword
+
+      - name: Upload filtered logs
+        uses: actions/upload-artifact@v3
+        with:
+          name: filtered_logs
+          path: filtered_logs.csv
