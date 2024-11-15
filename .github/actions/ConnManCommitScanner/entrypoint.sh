@@ -1,38 +1,36 @@
 #!/bin/bash
 
-# Define the repository directory
-REPO_DIR="${1:-./}"  # Default to current directory if not provided
+set -e  # Exit on error
+
+# Define variables (hardcoded values)
+REPO_DIR="./"  # Repository directory (default to the current directory)
 OUTPUT_FILE="filtered_logs.csv"  # Output CSV file name
-INCLUDE_KEYWORD="by team_id"  # The keyword or phrase to include
-EXCLUDE_KEYWORD="cis2_example"  # The keyword or phrase to exclude
+INCLUDE_KEYWORD="by team_id"  # Hardcoded include keyword
+EXCLUDE_KEYWORD="cis2_example"  # Hardcoded exclude keyword
 
-# Check if include keyword is provided
-if [ -z "$INCLUDE_KEYWORD" ]; then
-  echo "Usage: $0 <include_keyword> [exclude_keyword]"
-  exit 1
-fi
+# Navigate to the repository
+cd "$REPO_DIR" || { echo "Repository directory not found: $REPO_DIR"; exit 1; }
 
-# Navigate to the Git repository directory
-cd "$REPO_DIR" || { echo "Directory not found: $REPO_DIR"; exit 1; }
-
-# Output header row to CSV file (remove "Message" column)
+# Create CSV header
 echo "Commit Hash,Date,Last_36_Chars,Changed_Files" > "$OUTPUT_FILE"
 
-# Run git log, filter by include keyword, and process each commit
+# Process Git logs and filter by INCLUDE_KEYWORD
 git log --pretty=format:"%H,%ad,%s" --date=short | grep -i "$INCLUDE_KEYWORD" | \
 while IFS=, read -r commit_hash date message; do
-  # Check if the exclude keyword is present in the message
+
+  # Exclude commits with the exclude keyword
   if [[ -n "$EXCLUDE_KEYWORD" && "$message" =~ $EXCLUDE_KEYWORD ]]; then
-    continue  # Skip this commit if it contains the exclude keyword
+    echo "Excluding commit: $commit_hash"
+    continue
   fi
-  
-  # Get the last 36 characters of the commit message (excluding the last character)
+
+  # Extract the last 36 characters (excluding the final character) of the message
   last_36_chars="${message: -37:36}"
-  
-  # Get the list of changed files for this commit
+
+  # Get the changed files
   changed_files=$(git show --name-only --pretty="" "$commit_hash" | tr '\n' ';' | sed 's/;$//')
-  
-  # Output each line with the updated columns
+
+  # Append to CSV
   echo "$commit_hash,$date,\"$last_36_chars\",\"$changed_files\"" >> "$OUTPUT_FILE"
 done
 
