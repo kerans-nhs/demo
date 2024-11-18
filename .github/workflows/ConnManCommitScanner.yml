@@ -19,7 +19,6 @@ jobs:
       # Step 2: Run the script
       - name: Run ConnManCommitScanner script
         run: |
-          chmod +x .github/actions/ConnManCommitScanner/ConnManCommitScanner.sh
           .github/actions/ConnManCommitScanner/ConnManCommitScanner.sh "./"
 
       # Step 3: Upload the filtered logs as an artifact
