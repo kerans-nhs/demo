@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  filter_logs:
+  filter_connman_logs:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,5 +26,5 @@ jobs:
       - name: Upload filtered logs
         uses: actions/upload-artifact@v4
         with:
-          name: filtered_logs
-          path: filtered_logs.csv
+          name: filtered_connman_logs
+          path: filtered_connman_logs.csv
