@@ -7,7 +7,7 @@ REPO_DIR="./"  # Repository directory
 OUTPUT_FILE="filtered_logs.csv"  # Output CSV file name
 INCLUDE_KEYWORD="by team_id"  # Hardcoded include keyword
 EXCLUDE_KEYWORD="cis2_example"  # Hardcoded exclude keyword
-MAPPING_FILE="ConnManTeamIdMappings.json"  # JSON file with ID to human-readable name mapping
+MAPPING_FILE=".github/actions/ConnManCommitScanner/ConnManTeamIdMappings.json"  # JSON file with ID to human-readable name mapping
 
 # Navigate to the repository
 cd "$REPO_DIR" || { echo "Repository directory not found: $REPO_DIR"; exit 1; }
