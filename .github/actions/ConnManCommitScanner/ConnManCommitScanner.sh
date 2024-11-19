@@ -3,8 +3,8 @@
 set -e 
 
 # Define variables
-OUTPUT_FILE="filtered_connman_logs.csv"  # Output CSV file name
-SUMMARY_FILE="commit_summary.txt"  # Summary file name
+OUTPUT_FILE="connman_commits.csv"  # Output CSV file name
+SUMMARY_FILE="report_summary.txt"  # Summary file name
 INCLUDE_KEYWORD="by team_id"  # What to search for in commit message
 EXCLUDE_KEYWORD="cis2_example"  # What commit messages to exclude
 TEAM_ID_MAPPING=".github/actions/ConnManCommitScanner/ConnManTeamIdMappings.json"  # JSON file with ID to human-readable name mapping
