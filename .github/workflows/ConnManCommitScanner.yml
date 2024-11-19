@@ -28,3 +28,10 @@ jobs:
         with:
           name: filtered_connman_logs
           path: filtered_connman_logs.csv
+
+      # Step 4: Upload the summary file as an artifact
+      - name: Upload the commit summary file
+        uses: actions/upload-artifact@v4
+        with:
+          name: commit_summary
+          path: commit_summary.txt
