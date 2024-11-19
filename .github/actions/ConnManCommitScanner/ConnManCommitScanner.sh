@@ -32,8 +32,12 @@ while IFS=, read -r commit_hash date message; do
 
   # Extract the last 36 characters (excluding the final character) of the message
   team_id="${message: -37:36}"
+
+  echo "team_id is $team_id"
   # Look up the supplier name for the team ID
   supplier_name=$(get_supplier_name "$team_id")
+
+  echo "supplier_name is $supplier_name"
 
   # Get the changed files and extract the environment strings
   changed_files=$(git show --name-only --pretty="" "$commit_hash" | tr '\n' ';' | sed 's/;$//')
