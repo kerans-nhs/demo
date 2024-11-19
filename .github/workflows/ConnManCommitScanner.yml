@@ -22,16 +22,13 @@ jobs:
           chmod +x .github/actions/ConnManCommitScanner/ConnManCommitScanner.sh
           .github/actions/ConnManCommitScanner/ConnManCommitScanner.sh "./"
 
-      # Step 3: Upload the filtered logs as an artifact
-      - name: Upload filtered logs
-        uses: actions/upload-artifact@v4
-        with:
-          name: filtered_connman_logs
-          path: filtered_connman_logs.csv
+      # Step 3: Compress the logs and summary into a single zip file
+      - name: Create artifact zip
+        run: zip connman_report.zip filtered_connman_logs.csv commit_summary.txt
 
-      # Step 4: Upload the summary file as an artifact
-      - name: Upload the commit summary file
+      # Step 4: Upload the combined zip file as an artifact
+      - name: Upload combined artifact
         uses: actions/upload-artifact@v4
         with:
-          name: commit_summary
-          path: commit_summary.txt
+          name: connman_report
+          path: connman_report.zip
