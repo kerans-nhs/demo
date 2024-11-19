@@ -36,7 +36,7 @@ while IFS=, read -r commit_hash date message; do
   # Look up the supplier name for the team ID
   supplier_name=$(get_supplier_name "$team_id")
 
-  if [[ -n "$supplier_name" ]]; then
+  if [[ -z "$supplier_name" ]]; then
     supplier_name="Unknown"
   fi
 
