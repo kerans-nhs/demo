@@ -7,7 +7,7 @@ OUTPUT_FILE="filtered_connman_logs.csv"  # Output CSV file name
 SUMMARY_FILE="summary_report.txt"  # Summary file name
 INCLUDE_KEYWORD="by team_id"  # What to search for in commit message
 EXCLUDE_KEYWORD="cis2_example"  # What commit messages to exclude
-TEAM_ID_MAPPING="ConnManTeamIdMappings.json"  # JSON file with ID to human-readable name mapping
+TEAM_ID_MAPPING=".github/actions/ConnManCommitScanner/ConnManTeamIdMappings.json"  # JSON file with ID to human-readable name mapping
 
 # Create CSV headers
 echo "Commit Hash,Date,Team_Id,Supplier_Name,Environment,New_Config" > "$OUTPUT_FILE"
