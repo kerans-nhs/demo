@@ -3,7 +3,12 @@
 name: Conn Man Commit Scanner
 
 on:
+  # Manual Trigger
   workflow_dispatch:
+
+  # Trigger automatically on a weekly schedule
+  schedule:
+    - cron: "0 0 * * 0"  # Every Sunday at 00:00 UTC
 
 jobs:
   filter_connman_logs:
@@ -19,8 +24,8 @@ jobs:
       # Step 2: Run the script
       - name: Run ConnManCommitScanner script
         run: |
-          chmod +x .github/actions/ConnManCommitScanner/ConnManCommitScanner.sh
-          .github/actions/ConnManCommitScanner/ConnManCommitScanner.sh "./"
+          sudo apt-get update && sudo apt-get install -y jq
+          .github/actions/ConnManCommitScanner/ConnManCommitScanner.sh
 
 
       # Step 3: Prepare logs and summary for upload
