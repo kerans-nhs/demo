@@ -28,16 +28,13 @@ jobs:
           .github/actions/ConnManCommitScanner/ConnManCommitScanner.sh
 
       # Step 5: Send message through slack
-      - name: Share a file to that channel
-        uses: slackapi/slack-github-action@v2.0.0
-        with:
-          method: files.uploadV2
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          payload: |
-            channel: ${{ secrets.SLACK_CHANNEL_ID }}
-            initial_comment: "This is a test"
-            file: ".github/actions/ConnManCommitScanner/report_summary.txt"
-            filename: "report_summary.txt"
+      - name: Upload file to Slack
+        run: >
+          curl -F file=@.github/actions/ConnManCommitScanner/report_summary.txt
+          -F "initial_comment=This is a test"
+          -F channels=${{ secrets.SLACK_CHANNEL_ID }}
+          -H "Authorization: Bearer ${{ secrets.SLACK_BOT_TOKEN }}"
+          https://slack.com/api/files.upload
 
       # Step 3: Prepare logs and summary for upload
       - name: Prepare artifact directory
