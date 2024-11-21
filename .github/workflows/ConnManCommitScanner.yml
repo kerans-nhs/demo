@@ -42,11 +42,13 @@ jobs:
           path: connman_report
 
       # Step 5: Send message through slack
-      - name: Post to a Slack channel
+      - name: Share a file to that channel
         uses: slackapi/slack-github-action@v2.0.0
         with:
-          method: chat.postMessage
+          method: files.uploadV2
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             channel: ${{ secrets.SLACK_CHANNEL_ID }}
-            text: "howdy <@channel>!"
+            initial_comment: "This is a test"
+            file: "./connman_report/report_summary.txt"
+            filename: "report_summary.txt"
