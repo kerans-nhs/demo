@@ -30,11 +30,11 @@ jobs:
       # Step 5: Send message through slack
       - name: Upload file to Slack
         run: >
-          curl -F "file=@.github/actions/ConnManCommitScanner/report_summary.txt"
+          curl -F file=@.github/actions/ConnManCommitScanner/report_summary.txt
           -F "initial_comment=This is a test"
           -F channels=${{ secrets.SLACK_CHANNEL_ID }}
           -H "Authorization: Bearer ${{ secrets.SLACK_BOT_TOKEN }}"
-          https://slack.com/api/files.upload
+          https://slack.com/api/files.upload2
 
       # Step 3: Prepare logs and summary for upload
       - name: Prepare artifact directory
