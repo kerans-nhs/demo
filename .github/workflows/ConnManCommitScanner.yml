@@ -27,6 +27,18 @@ jobs:
           sudo apt-get update && sudo apt-get install -y jq
           .github/actions/ConnManCommitScanner/ConnManCommitScanner.sh
 
+      # Step 5: Send message through slack
+      - name: Share a file to that channel
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          method: files.uploadV2
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: ${{ secrets.SLACK_CHANNEL_ID }}
+            initial_comment: "This is a test"
+            file: "report_summary.txt"
+            filename: "report_summary.txt"
+
       # Step 3: Prepare logs and summary for upload
       - name: Prepare artifact directory
         run: |
@@ -40,15 +52,3 @@ jobs:
         with:
           name: connman_report
           path: connman_report
-
-      # Step 5: Send message through slack
-      - name: Share a file to that channel
-        uses: slackapi/slack-github-action@v2.0.0
-        with:
-          method: files.uploadV2
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          payload: |
-            channel: ${{ secrets.SLACK_CHANNEL_ID }}
-            initial_comment: "This is a test"
-            file: "./connman_report/report_summary.txt"
-            filename: "report_summary.txt"
