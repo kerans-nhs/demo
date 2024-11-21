@@ -8,7 +8,7 @@ on:
 
   # Trigger automatically on a weekly schedule
   schedule:
-    - cron: "0 0 * * 0"  # Every Sunday at 00:00 UTC
+    - cron: "0 0 * * 0" # Every Sunday at 00:00 UTC
 
 jobs:
   filter_connman_logs:
@@ -19,14 +19,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch the full history (all commits)
+          fetch-depth: 0 # Fetch the full history (all commits)
 
       # Step 2: Run the script
       - name: Run ConnManCommitScanner script
         run: |
           sudo apt-get update && sudo apt-get install -y jq
           .github/actions/ConnManCommitScanner/ConnManCommitScanner.sh
-
 
       # Step 3: Prepare logs and summary for upload
       - name: Prepare artifact directory
@@ -43,9 +42,13 @@ jobs:
           path: connman_report
 
       # Step 5: Send message through slack
-      - name: Send GitHub Action data to a Slack workflow
+      - name: Share a file to that channel
         uses: slackapi/slack-github-action@v2.0.0
         with:
-          payload-file-path: "connman_report"
-          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-          webhook-type: webhook-trigger
+          method: files.uploadV2
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: ${{ secrets.SLACK_CHANNEL_ID }}
+            initial_comment: "This is a test"
+            file: "connman_report.zip"
+            filename: "connman_report.zip"
