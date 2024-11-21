@@ -50,5 +50,5 @@ jobs:
           payload: |
             channel: ${{ secrets.SLACK_CHANNEL_ID }}
             initial_comment: "This is a test"
-            file: "connman_report.zip"
-            filename: "connman_report.zip"
+            file: "./connman_report/report_summary.txt"
+            filename: "report_summary.txt"
