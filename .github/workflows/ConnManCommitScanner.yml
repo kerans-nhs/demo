@@ -36,7 +36,7 @@ jobs:
           payload: |
             channel: ${{ secrets.SLACK_CHANNEL_ID }}
             initial_comment: "This is a test"
-            file: "report_summary.txt"
+            file: "./.github/actions/ConnManCommitScanner/report_summary.txt"
             filename: "report_summary.txt"
 
       # Step 3: Prepare logs and summary for upload
