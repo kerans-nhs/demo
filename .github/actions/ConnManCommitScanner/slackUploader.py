@@ -12,8 +12,12 @@ CHANNEL_ID = os.getenv("CHANNEL_ID")
 client = WebClient(token=SLACK_BOT_TOKEN)
 
 # File details
-file_path = "report_summary.txt"  # Replace with the path to your CSV file
-file_title = "Report Summary"
+# Replace with the path to your CSV file
+report_file_path = "report_summary.txt"
+report_file_title = "Report Summary"
+
+commit_file_path = "connman_commits.csv"
+commit_file_title = "Conn Man Commits"
 initial_comment = "This is a test."
 
 try:
@@ -21,8 +25,12 @@ try:
     response = client.files_upload_v2(
         file_uploads=[
             {
-                "file": file_path,
-                "title": file_title,
+                "file": report_file_path,
+                "title": report_file_title,
+            },
+            {
+                "file": commit_file_path,
+                "title": commit_file_title,
             }
         ],
         channel=CHANNEL_ID,
