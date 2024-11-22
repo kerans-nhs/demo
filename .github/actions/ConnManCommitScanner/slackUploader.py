@@ -18,7 +18,7 @@ report_file_title = "Report Summary"
 
 commit_file_path = "connman_commits.csv"
 commit_file_title = "Conn Man Commits"
-initial_comment = "This is a test."
+initial_comment = "Here are the weekly Conn Man Reports"
 
 try:
     # Upload the file
@@ -39,3 +39,4 @@ try:
     print("File uploaded successfully:", response)
 except SlackApiError as e:
     print(f"Error uploading file: {e.response['error']}")
+    raise e
