@@ -30,20 +30,17 @@ jobs:
 
       # Step 3: Set up Python
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.9
-
-      # Step 4: Install dependencies
-      - name: Install Slack SDK
-        run: pip install slack-sdk
+          python-version: "3.13"
+      - run: pip install slack-sdk
 
       # Step 5: Run the Python script
       - name: Upload file to Slack
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
-        run: python slackUploader.py
+        run: python .github/actions/ConnManCommitScanner/slackUploader.py
 
       # Step 6: Prepare logs and summary for upload
       - name: Prepare artifact directory
