@@ -28,25 +28,31 @@ jobs:
           .github/actions/ConnManCommitScanner/ConnManCommitScanner.sh
           ls
 
-      # Step 5: Send message through slack
-      - name: Upload file to Slack
-        uses: vaporif/slack-file-upload-action@v1
+      # Step 3: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          files: >
-            [
-              {"file": "report_summary.txt", "filename": "report_summary.txt"}
-            ]
-          channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
+          python-version: 3.9
 
-      # Step 3: Prepare logs and summary for upload
+      # Step 4: Install dependencies
+      - name: Install Slack SDK
+        run: pip install slack-sdk
+
+      # Step 5: Run the Python script
+      - name: Upload file to Slack
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+        run: python slackUploader.py
+
+      # Step 6: Prepare logs and summary for upload
       - name: Prepare artifact directory
         run: |
           mkdir -p connman_report  # Create a directory to hold the files
           mv connman_commits.csv connman_report/
           mv report_summary.txt connman_report/
 
-      # Step 4: Upload the combined artifact (directory)
+      # Step 7: Upload the combined artifact (directory)
       - name: Upload combined artifact
         uses: actions/upload-artifact@v4
         with:
