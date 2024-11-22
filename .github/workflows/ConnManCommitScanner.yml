@@ -35,10 +35,9 @@ jobs:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           files: >
             [
-              {"file": "./dir/test.txt", "filename": "testfile.txt"},
-              {"file": "./dir/test.txt", "filename": "testfile.txt"}
+              {"file": "report_summary.txt", "filename": "report_summary.txt"}
             ]
-          channel_id: C06S5FLDSN4
+          channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
 
       # Step 3: Prepare logs and summary for upload
       - name: Prepare artifact directory
