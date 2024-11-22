@@ -30,12 +30,15 @@ jobs:
 
       # Step 5: Send message through slack
       - name: Upload file to Slack
-        run: >
-          curl -F file=@report_summary.txt
-          -F "initial_comment=This is a test"
-          -F channels=${{ secrets.SLACK_CHANNEL_ID }}
-          -H "Authorization: Bearer ${{ secrets.SLACK_BOT_TOKEN }}"
-          https://slack.com/api/files.upload2
+        uses: vaporif/slack-file-upload-action@v1
+        with:
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          files: >
+            [
+              {"file": "./dir/test.txt", "filename": "testfile.txt"},
+              {"file": "./dir/test.txt", "filename": "testfile.txt"}
+            ]
+          channel_id: C06S5FLDSN4
 
       # Step 3: Prepare logs and summary for upload
       - name: Prepare artifact directory
