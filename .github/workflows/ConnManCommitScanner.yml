@@ -4,10 +4,6 @@ on:
   # Manual Trigger
   workflow_dispatch:
 
-  # Trigger automatically on a weekly schedule
-  schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00 UTC
-
 jobs:
   filter_connman_logs:
     runs-on: ubuntu-latest
